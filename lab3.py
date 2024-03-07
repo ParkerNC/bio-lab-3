@@ -95,60 +95,6 @@ def main(sysN, sysP):
         print(''.join(['~' for x in range(50)]))
         print('numStable: ', numStable[i])
     
-    # plot stable
-    for i in range(numExperiments):
-        plt.plot(np.arange(0, numPatterns), numStable[i], label=f'Experiment {i}')
-    plt.xlabel('Number of patterns imprinted')
-    plt.ylabel('Number of stable networks')
-    plt.title('Number Stable vs Number Imprinted')
-    plt.legend()
-    plt.savefig(f'numStable{numNeurons}_{numPatterns}.png')
-
-    # plot avg
-    plt.clf()
-    avg = np.mean(numStable, axis=0)
-    std = np.std(numStable, axis=0)
-    plt.plot(np.arange(0, numPatterns), avg)
-    plt.fill_between(np.arange(0, numPatterns), np.subtract(avg, std), np.add(avg, std), alpha=0.2)
-    plt.xlabel('Number of patterns imprinted')
-    plt.ylabel('Number of stable networks')
-    plt.title('Number Stable vs Number Imprinted')
-    plt.legend()
-    plt.savefig(f'avgStable{numNeurons}_{numPatterns}.png')
-
-    #plot fraction instable
-    plt.clf()
-    for i in range(numExperiments):
-        fractUnstable = numStable[i].copy()
-        '''if numImpr[i] != 0:  '''
-        fractUnstable /= np.arange(1, numPatterns+1)
-        fractUnstable -= 1
-        fractUnstable = np.abs(fractUnstable)
-        plt.plot(np.arange(0, numPatterns), fractUnstable, label=f'Experiment {i}')
-    plt.xlabel('Number of patterns imprinted')
-    plt.ylabel('Fraction of unstable networks')
-    plt.title('Average Fraction Unstable vs Number Imprinted')
-    plt.legend()
-    plt.savefig(f'fractUnstable{numNeurons}_{numPatterns}.png')
-
-    # plot avg
-    plt.clf()
-    fractUnstable = np.zeros(shape=(numExperiments, numPatterns))
-    for i in range(numExperiments):
-        fractUnstable[i] = numStable[i].copy()
-        '''if numImpr[i] != 0:  '''
-        fractUnstable[i] /= np.arange(1, numPatterns+1)
-        fractUnstable[i] -= 1
-        fractUnstable[i] = np.abs(fractUnstable[i])
-    avg = np.mean(fractUnstable, axis=0)
-    std = np.std(fractUnstable, axis=0)
-    plt.plot(np.arange(0, numPatterns), avg)
-    plt.fill_between(np.arange(0, numPatterns), np.subtract(avg, std), np.add(avg, std), alpha=0.2)
-    plt.xlabel('Number of patterns imprinted')
-    plt.ylabel('Number of stable networks')
-    plt.title('Average Fraction Unstable vs Number Imprinted')
-    plt.legend()
-    plt.savefig(f'avgUnstable{numNeurons}_{numPatterns}.png')
 
 
 if __name__ == "__main__":
