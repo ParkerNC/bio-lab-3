@@ -64,6 +64,7 @@ def runNetwork(pPatterns, weights, wShape):
         if checkStability(state, newState):
             numStable += 1
 
+    print(numStable, numImprinted)
     return newState, numStable, numImprinted
 
 def checkStability(s, sPrime):
