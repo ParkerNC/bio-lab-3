@@ -93,7 +93,7 @@ def compute_state(weights: np.ndarray, state: np.ndarray) -> np.ndarray:
 def run(patterns: np.ndarray, weights: np.ndarray) -> tuple[int, int, int]:
     count_imprinted = 0
     count_stable = 0
-    basin_size = 0
+    basin_size = {}
     for pattern in patterns:
         current_state = pattern.copy()
         new_state = pattern.copy()
@@ -104,10 +104,10 @@ def run(patterns: np.ndarray, weights: np.ndarray) -> tuple[int, int, int]:
         if np.array_equal(current_state, new_state):
             #array is stable, need to do basin of attraction 
             count_stable +=1
-            basin_size = estimate_basin(current_state, weights)
+            basin_size[count_imprinted] = estimate_basin(current_state, weights)
         else:
             #not stable, set basin of attraction to 0
-            basin_size = 0
+            basin_size[count_imprinted] = 0
 
     return count_stable, count_imprinted, basin_size
 
@@ -129,7 +129,7 @@ def run_expiriement() -> tuple[int, int]:
         imprinted_patterns.append(imprinted)
         basins.append(basin)
     
-    return stable_patterns, imprinted_patterns
+    return stable_patterns, imprinted_patterns, basins
 
 if __name__ == "__main__":
     #main file, run 5 experiments
@@ -140,13 +140,12 @@ if __name__ == "__main__":
         patterns, imprints, basins = run_expiriement()
         print(patterns, imprints, basins)
         experiment = {}
-        experiment[i] = []
-        experiment[i]["imprints"] = []
-        experiment[i]["imprints"].append(imprints)
-        experiment[i]["stables"] = []
-        experiment[i]["stables"].append(patterns)
-        experiment[i]["basins"] = []
-        experiment[i]["basins"].append(basins)
+        experiment["imprints"] = []
+        experiment["imprints"].append(imprints)
+        experiment["stables"] = []
+        experiment["stables"].append(patterns)
+        experiment["basins"] = []
+        experiment["basins"].append(basins)
 
         experiments["experiments"].append(experiment)
 

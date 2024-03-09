@@ -1,11 +1,5 @@
-## How to run the code
----
+# Parker Collier Bio Lab 3
 
-* Option 1: use the runLab3.sh script
-    ```
-    sh runLab3.sh
-    ```
-* Option 2: run lab3.py with python
-    ```
-    python lab3.py num_neurons num_patterns
-    ```
+> python3 hops.py
+
+runs all 5 experiments, graphing code is not included, results of running are saved to datafile.json, this code takes ~10 min to run, The raw data is not pretty.
